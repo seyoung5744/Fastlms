@@ -27,3 +27,4 @@ LMS(Learning Management System)
 
 ----
 ERD
+![ERD](./img/학습관리시스템-ERD.png)
