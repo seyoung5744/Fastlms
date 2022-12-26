@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:43306/minicampus
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: minicampus_user
+    password: 1234
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: seyoung574458@gmail.com
+    password: ozqghngdsrsxbycz
+    properties:
+      mail:
+        smtp:
+          ssl:
+            protocols: TLSv1.2
+          starttls:
+            enable: true
+  logging:
+    level:
+      root: debug
+
+
+mybatis:
+  mapper-locations: mybatis/**/*.xml # mybatis 경로가 어떻게 되든간에 하위에 있는 xml 파일로 설정.
+  configuration:
+    map-underscore-to-camel-case: true   # DB 컬럼명은 _ 명칭을 사용, 클래스는 카멜 표기법을 이용 중. 이때 두 명칭을 맵핑해주기 위해 사용
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl     # 로그 출력 방식
+
+
+
+
+
+
+
+

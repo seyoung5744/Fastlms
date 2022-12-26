@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>강좌 상세 페이지</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+        <script>
+            // $(document).ready(function (){
+            //
+            // });
+
+            // 위 document ready 와 동일한 기능. 단축 버전
+            $(function (){
+                // 수강 신청 시 정보를 보낼 때
+                // 강좌 정보만 서버로 전송. 그러나 개인 정보는 보안 이슈 때문에 login된 session에서 정보를 가져와야 함.
+                $('#submitForm').on('submit', function (){
+
+                    if(!confirm("수강 신청을 하시겠습니까?")){
+                        return false;
+                    }
+
+                    var $thisForm = $(this);
+
+                    var url = "/api/course/register.api";
+                    var parameter = {
+                        courseId: $thisForm.find('input[name=id]').val()
+                    };
+
+                    axios.post(url, parameter).then(function (response) {
+
+                        console.log(response);
+                        console.log(response.data);
+
+                        response.data = response.data || {};
+                        response.data.header = response.data.header || {};
+
+                        if(!response.data.header.result){
+                            alert(response.data.header.message);
+                            return false;
+                        }
+
+                        // 정상적일 때
+                        alert("강좌가 정상적으로 신청되었습니다.");
+                        location.href = "/";
+                    }).catch(function (err){
+                        console.log(err);
+                    });
+
+
+
+                   return false;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1> 강좌 상세 정보 </h1>
+        <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+
+
+        <div>
+            <h2>
+                강좌명: <span th:text="${courseDetail.subject}">강좌명</span>
+            </h2>
+            <div th:utext="${courseDetail.contents}"></div>
+            <div>
+                <p>가격: <span th:text="${courseDetail.price}">0</span> </p>
+                <p>할인가격: <span th:text="${courseDetail.salePrice}">0</span> </p>
+            </div>
+
+            <div>
+                <img th:src="${courseDetail.urlFilename}"/>
+            </div>
+            <div>
+                <form id="submitForm" method="post">
+                    <input type="hidden" name="id" th:value="${courseDetail.id}"/>
+                    <button type="submit">수강 신청</button>
+                    <a href="/course">강좌목록</a>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>메인 페이지</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                $('.bxslider').bxSlider({
+                    auto: true,
+                    speed: 500,
+                    pause: 4000,
+                    mode:'fade',
+                    autoControls: true,
+                    pager:true,
+                    touchEnabled : false,
+                    slideWidth: 800,
+                    slideMargin: 25
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1> 메인 페이지 </h1>
+        <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+
+        <div class="home_slider">
+            <div class="bxslider">
+                <div th:each="list : ${bannerDtoList}">
+                    <span th:if="${list.status eq 'NEW'}">
+                        <a th:href="'http://localhost:8080' + ${list.urlFilename}"
+                           th:target="_blank">
+                        <img th:src="${list.urlFilename}" th:alt="${list.subject}" th:if="${list.urlFilename != null}"/>
+                    </a>
+                    </span>
+                    <span th:if="${list.status eq 'PRESENT'}">
+                        <a th:href="'http://localhost:8080' + ${list.urlFilename}">
+                        <img th:src="${list.urlFilename}" th:alt="${list.subject}" th:if="${list.urlFilename != null}"/>
+                    </a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+    <h1>회원 가입</h1>
+    <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
+    <!--
+    // 아이디(이메일), 이름, 전화번호, 비밀번호
+    -->
+    <form method="post">
+        <!-- 서버로 데이터 보내기
+        1. form 태그로 감싸진 부분만 서버로 전송된
+        2. control들이 이름을 갖고 있어야 함
+        -->
+        <div>
+            <input type="email" name="userId" placeholder="아이디(이메일) 입력" required/>
+        </div>
+        <div>
+            <input type="text" name="userName" placeholder="이름 입력" required/>
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="비밀번호 입력" required/>
+        </div>
+        <div>
+            <input type="password" name="rePassword" placeholder="확인 비밀번호 입력" required/>
+        </div>
+        <div>
+            <input type="tel" name="phone" placeholder="전화번호 입력" required/>
+        </div>
+
+        <div>
+            <button>회원 가입 하기</button>
+        </div>
+    </form>
+</body>
+</html>

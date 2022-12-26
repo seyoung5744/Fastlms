@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 화면</title>
+    <style>
+        .detail table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .detail table th, .detail table td {
+            border: solid 1px #000;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .buttons a, .buttons button {
+            border-width: 0;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 15px;
+            line-height: 20px;
+            height: 20px;
+            color: #000;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+        $(document).ready(function (){
+
+        });
+    </script>
+</head>
+<body>
+    <h1>배너 관리 - 배너 등록</h1>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+    <p th:text="${exits}"></p>
+    <div class="detail">
+        <form id="submitForm" method="post" enctype="multipart/form-data"> <!-- action은 현재 주소 그대로 사용하므로 사용 X -->
+            <table>
+                <tbody>
+                    <tr>
+                        <th>배너명</th>
+                        <td>
+                            <input th:value="${detail.subject}" type="text" name="subject" required placeholder="배너명 입력"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>배너 파일</th>
+                        <td>
+                            <input th:value="${detail.urlFilename}" type="file" name="file" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>링크 주소</th>
+                        <td>
+                            <input th:value="${detail.urlFilename}" type="text" name="urlFilename" required placeholder="링크 주소 입력"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>오픈 방법</th>
+                        <td>
+                            <select name="status" required>
+                                <option value="NEW"> 새로운 창 </option>
+                                <option value="PRESENT"> 현재 창 </option>
+                            </select>
+                            <p>
+                                현재 상태 : <span th:text="${detail.status}"></span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>정렬 순서</th>
+                        <td>
+                            <input th:value="${detail.sequence}" name="sequence" required placeholder="정렬 순서 입력"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>공개 여부</th>
+                        <td>
+                            <input th:checked="${detail.openYn}" type="checkbox" name="openYn">
+                            <input type="hidden" name="_openYn" value="false">
+                            <label>공개</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="buttons">
+                <button th:if="${editMode}" type="submit"> 배너 수정 하기 </button>
+                <button th:if="${!editMode}" type="submit"> 배너 등록 하기 </button>
+                <a href="/admin/banner/list.do"> 목록 이동 </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

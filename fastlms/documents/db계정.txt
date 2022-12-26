@@ -1,0 +1,12 @@
+- mariadb-10.6.11
+
+ip : 127.0.0.1
+port : 43306
+db instance: minicampus
+id: minicampus_user
+pwd : 1234
+
+root
+1234
+
+
