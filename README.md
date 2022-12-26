@@ -25,6 +25,3 @@ LMS(Learning Management System)
 - ✅ 배너관리(백오피스 기능)
 - ✅ 프론트 배너 노출 기능
 
-----
-ERD
-![ERD](./img/학습관리시스템-ERD.png)
